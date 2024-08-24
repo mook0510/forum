@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        input[type="submit"], .button-style {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            cursor: pointer;
+            background-color: #4CAF50;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .button-style {
+            background-color: #007bff;
+        }
+
+        input[type="submit"]:hover, .button-style:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>로그인</h1>
+        <form action="login.php" method="POST">
+            아이디: <input type="text" name="userid"><br>
+            암호: <input type="password" name="passwd"><br>
+            <input type="submit" value="로그인">
+        </form>
+        <a href="user_reg.html" class="button-style">회원가입</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 가입</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        input[type="button"], input[type="submit"], input[type="reset"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        input[type="button"] {
+            background-color: #007bff;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+        }
+
+        input[type="reset"] {
+            background-color: #f44336;
+        }
+
+        input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+            opacity: 0.9;
+        }
+
+        .login-link {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .login-link:hover {
+            background-color: #0056b3;
+            text-decoration: none;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        var idcheck = 0;
+        $(document).ready(function(){
+            $('#reg').submit(function(){
+                if(idcheck == 0) {
+                    alert("아이디 중복확인을 하세요.");
+                    return false;
+                }
+                if($('#passwd').val() != $('#passwd2').val()) {
+                    alert('암호확인이 일치하지 않습니다.');
+                    $('#passwd2').focus();
+                    return false;
+                }
+                return true;
+            });
+
+            $('#idcheck').click(function(){
+                var id = $('#userid').val();
+                if(!id.trim()) {
+                    alert('아이디를 입력하세요.');
+                    $('#userid').focus();
+                    return false;
+                }
+                // 비동기 통신 ajax
+                $.ajax({
+                    method: 'post',
+                    url: 'idcheck.php',
+                    data: { userid: id }
+                }).done(function(msg){
+                    if(msg == 1) {
+                        alert('사용 가능한 아이디 입니다.');
+                        idcheck = 1;
+                    }
+                    else {
+                        alert('사용 불가 아이디 입니다.');
+                        idcheck = 0;
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h1> 회원 가입 </h1>
+        <form id="reg" action="user_reg.php" method="post">
+            아이디: <input type="text" id="userid" name="userid" required>
+            <input type="button" id="idcheck" value="중복확인"><br>
+            암호: <input type="password" id="passwd" name="passwd" required><br>
+            암호확인: <input type="password" id="passwd2" name="passwd2" required><br>
+            이름: <input type="text" name="name" required><br>
+            이메일: <input type="text" name="email" required><br>
+            <input type="submit" value="가입">
+            <input type="reset" value="초기화">
+        </form>
+        <a href="login.html" class="login-link">로그인</a>
+    </div>
+</body>
+</html>
